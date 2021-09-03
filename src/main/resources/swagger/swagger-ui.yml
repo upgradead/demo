@@ -1,0 +1,175 @@
+swagger: "2.0"
+info:
+  description: "GoFluent Coding exercise"
+  version: "1.0.0"
+  title: "Online Basket Service"
+
+basePath: "/"
+tags:
+  - name: "basket"
+    description: "Online Shopping"
+
+schemes:
+  - "https"
+paths:
+  /basket/{customerId}:
+    post:
+      tags:
+        - "basket"
+      summary: "Create basket"
+      description: ""
+      operationId: "createBasket"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "customerId"
+          type: integer
+          required: true
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Basket"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Basket or Item not found"
+        "405":
+          description: "Validation exception"
+  /basket/add:
+    put:
+      tags:
+        - "basket"
+      summary: "Add item to basket"
+      description: ""
+      operationId: "addItem"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Item"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Basket or Item not found"
+        "405":
+          description: "Validation exception"
+  /basket/remove:
+    put:
+      tags:
+        - "basket"
+      summary: "Add item to basket"
+      description: ""
+      operationId: "removeItem"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Item"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Basket or Item not found"
+        "405":
+          description: "Validation exception"
+  /basket/retrieveItems/{basketId}:
+    get:
+      tags:
+        - "basket"
+      summary: "Add item to basket"
+      description: ""
+      operationId: "retrieveItems"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "basketId"
+          type: integer
+          required: true
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Product"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Basket or Item not found"
+        "405":
+          description: "Validation exception"
+
+  /basket/getTotal/{basketId}:
+    get:
+      tags:
+        - "basket"
+      summary: "Add item to basket"
+      description: ""
+      operationId: "getTotal"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "basketId"
+          type: integer
+          required: true
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/BasketTotal"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Basket or Item not found"
+        "405":
+          description: "Validation exception"
+
+definitions:
+  Item:
+    type: "object"
+    required:
+      - "productId"
+      - "basketId"
+      - "pieces"
+    properties:
+      productId:
+        type: "integer"
+      basketId:
+        type: "integer"
+      pieces:
+        type: "integer"
+  Product:
+    type: "object"
+    properties:
+      productId:
+        type: "integer"
+      price:
+        type: "number"
+      name:
+        type: "string"
+  Basket:
+    type: "object"
+    properties:
+      basketId:
+        type: "integer"
+  BasketTotal:
+    type: "object"
+    properties:
+      total:
+        type: "number"
+        format: "double"

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: ivan
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbschema
+    username: ivan
+    password: dev20123
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+#logging:
+#  level:
+#    org:
+#      springframework: DEBUG
+
